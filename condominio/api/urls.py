@@ -1,7 +1,10 @@
-from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import CondominioViewSet
+
+router = DefaultRouter()
+router.register(r'condominios', CondominioViewSet, basename='condominio')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/casas/', include('casas.api.urls')),
+    path('', include(router.urls)),
 ]
