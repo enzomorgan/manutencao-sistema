@@ -32,9 +32,11 @@ class CasaViewSet(ModelViewSet):
             nova_casa = CasaModel.objects.create(
                 numero=serializer.validated_data['numero'],
                 bloco=serializer.validated_data['bloco'],
-                capacidade=serializer.validated_data['capacidade'],
-                tipo=serializer.validated_data['tipo'],
-                disponivel=serializer.validated_data['disponivel']
+                quantidade_quartos=serializer.validated_data['quantidade de quartos'],
+                quantidade_banheiros=serializer.validated_data['quantidade de banheiros'],
+                area_lazer=serializer.validated_data['area de lazer'],
+                garagem=serializer.validated_data['garagem'],
+                disponivel=serializer.validated_data['disponivel'],
             )
 
             serializer_saida = CasaSerializer(nova_casa)
