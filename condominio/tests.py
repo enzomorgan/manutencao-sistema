@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 
-from condominios.models import CasaModel
+from condominio.models import CasaModel
 
 # Create your tests here.
 
