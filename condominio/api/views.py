@@ -32,9 +32,9 @@ class CasaViewSet(ModelViewSet):
             nova_casa = CasaModel.objects.create(
                 numero=serializer.validated_data['numero'],
                 bloco=serializer.validated_data['bloco'],
-                quantidade_quartos=serializer.validated_data['quantidade de quartos'],
-                quantidade_banheiros=serializer.validated_data['quantidade de banheiros'],
-                area_lazer=serializer.validated_data['area de lazer'],
+                quantidade_quartos=serializer.validated_data['quantidade_quartos'],
+                quantidade_banheiros=serializer.validated_data['quantidade_banheiros'],
+                area_lazer=serializer.validated_data['area_lazer'],
                 garagem=serializer.validated_data['garagem'],
                 disponivel=serializer.validated_data['disponivel'],
             )
@@ -84,17 +84,15 @@ class CondominioViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
 
         casa_numero = serializer.validated_data['sala_numero']
-        hora_inicio = serializer.validated_data['hora_inicio']
-        hora_fim = serializer.validated_data['hora_fim']
+        endereco = serializer.validated_data['endereco']
 
         sala_existe = CasaModel.objects.filter(numero=casa_numero).exists()
-        in_conflict = CondominioModel.objects.filter(casa_numero=casa_numero, hora_inicio__lt=hora_fim, hora_fim__gt=hora_inicio).exists()
+        in_conflict = CondominioModel.objects.filter(casa_numero=casa_numero, endereco_lt = endereco).exists()
 
         if sala_existe and not in_conflict:
             novo_condominio = CondominioModel.objects.create(
                 casa_numero=serializer.validated_data['casa_numero'],
-                hora_inicio=serializer.validated_data['hora_inicio'],
-                hora_fim=serializer.validated_data['hora_fim']
+                endereco = serializer.validated_data['endereco'],
             )
 
             serializer_saida = CondominioSerializer(novo_condominio)
