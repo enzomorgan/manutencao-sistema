@@ -51,7 +51,20 @@ class CasaViewSet(ModelViewSet):
         busca = CasaModel.objects.filter(bloco=2)
         serializer = CasaSerializer(busca, many=True)
         return Response({"Info":"Lista de Casas", "data":serializer.data}, status=status.HTTP_200_OK)
-
+    
+    @action(methods=['delete'], detail=False, url_path="deletar")
+    def deletar_casa(self, request):
+        numero = request.query_params.get('numero', None)
+        
+        if numero is not None:
+            try:
+                casa = CasaModel.objects.get(numero=numero)
+                casa.delete()  # Exclui a casa
+                return Response({"Info": "Casa deletada com sucesso!"}, status=status.HTTP_204_NO_CONTENT)
+            except CasaModel.DoesNotExist:
+                return Response({"Info": "Casa não encontrada!"}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({"Info": "Número da casa não fornecido!"}, status=status.HTTP_400_BAD_REQUEST)
 
 class CondominioViewSet(ModelViewSet):
     serializer_class = CondominioSerializer
