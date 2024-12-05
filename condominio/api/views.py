@@ -65,6 +65,12 @@ class CasaViewSet(ModelViewSet):
                 return Response({"Info": "Casa não encontrada!"}, status=status.HTTP_404_NOT_FOUND)
         else:
             return Response({"Info": "Número da casa não fornecido!"}, status=status.HTTP_400_BAD_REQUEST)
+        
+    @action(methods=['get'], detail=False, url_path="listar")
+    def listar_casas(self, request):
+        casas = CasaModel.objects.all()  # Lista todas as casas
+        serializer = CasaSerializer(casas, many=True)
+        return Response({"Info": "Lista de Casas", "data": serializer.data}, status=status.HTTP_200_OK)    
 
 class CondominioViewSet(ModelViewSet):
     serializer_class = CondominioSerializer
