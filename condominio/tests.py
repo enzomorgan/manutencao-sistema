@@ -16,8 +16,10 @@ class CasaTesteCase(TestCase):
         data = {
             "numero": 2,
             "bloco": 2,
-            "capacidade": 5,
-            "tipo": "Casa",
+            "quantidade_quartos": 1,
+            "quantidade_banheiros": 2,
+            "area_lazer": True,
+            "garagem": True,
             "disponivel": True
         }
         response = self.client.post(url,data)
@@ -30,10 +32,12 @@ class CasaTesteCase(TestCase):
     def test_listar_calas(self):
         url = "http://localhost:8000/casas/"
         CasaModel.objects.create(
-            numero=3,
-            bloco=1,
-            capacidade=3,
-            tipo="Apto",
+            numero=2,
+            bloco=2,
+            quantidade_quartos=1,
+            quanntidade_banheiros=2,
+            area_lazer=True,
+            garagem=True,
             disponivel=True
         )
         response = self.client.get(url)
