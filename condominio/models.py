@@ -1,35 +1,30 @@
 from django.db import models
 
-class Condominio(models.Model):
-    nome = models.CharField(max_length=100)
-    endereco = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.nome
+# Create your models here.
 
 class CasaModel(models.Model):
-    numero_casa = models.IntegerField()
+
+    numero = models.IntegerField()
     bloco = models.IntegerField()
-    quantidade_quartos = models.IntegerField()
-    quantidade_banheiros = models.IntegerField()
-    area_lazer = models.BooleanField()
+    capacidade = models.IntegerField()
+    tipo = models.CharField(max_length=20)
     disponivel = models.BooleanField()
 
     def __str__(self):
-        return f'casa {self.numero_casa}'
+        return f'Cala {self.numero}'
     
     class Meta:
         verbose_name = "Casa"
         verbose_name_plural = "Casas"
 
-class NegociacaoCasaModel(models.Model):
-    numero_casa = models.IntegerField()
-    bloco = models.IntegerField()
-    alugar_casa = models.BooleanField()
-    comprar_casa = models.BooleanField()
-    
+class CondominioModel(models.Model):
+    casa_numero = models.IntegerField()
+    hora_inicio = models.DateTimeField()
+    hora_fim = models.DateTimeField()
+
     def __str__(self):
-        return f'negociacao - Casa[{self.casa_numero}]'
+        return f'Condominio - Casa[{self.sala_numero}] - [{self.hora_inicio}]'
+    
     class Meta:
-        verbose_name = "negociacao"
-        verbose_name_plural = "negociacoes"
+        verbose_name = "Reserva"
+        verbose_name_plural = "Reservas"

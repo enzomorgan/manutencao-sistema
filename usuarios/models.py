@@ -1,24 +1,29 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class Casa(models.Model):
-    nome = models.CharField(max_length=100)
-    endereco = models.CharField(max_length=200)
+# Create your models here.
+
+class UserProfileExample(models.Model):
+
+    phone_number = models.CharField(max_length=12)
+    address = models.CharField(max_length=150)
+    birth_date = models.DateField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Profile"
+        verbose_name_plural = "Profiles"
+
+class Morador(models.Model):
+
+    nome = models.CharField(max_length=140)
+    cpf = models.CharField(max_length=16)
+    telefone = models.CharField(max_length=20)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nome
-
-class Corretor(models.Model):
-     name = models.CharField(max_length=140, verbose_name= "Nome Completo")
-     cpf = models.CharField(max_length=14, unique=True, verbose_name="CPF")
-     telefone = models.CharField(max_length=15, verbose_name="Telefone")
-
-#status do corretor 
-ativo = models.BooleanField(default=True, verbose_name="Ativo")
-
-def __str__(self):
-    return f'Corretor {self.nome} - CPF: {self.cpf}'
-
-#Metodos
-class Meta:
-    verbose_name = 'Corretor'
-    verbose_name_plural = 'Corretores'
+    
+    class Meta:
+        verbose_name = "Morador"
+        verbose_name_plural = "Moradores"

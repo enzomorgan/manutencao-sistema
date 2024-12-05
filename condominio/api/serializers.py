@@ -1,7 +1,15 @@
-from rest_framework import serializers
-from .models import Condominio # type: ignore
+from rest_framework.serializers import ModelSerializer
 
-class CondominioSerializer(serializers.ModelSerializer):
+from condominio.models import CondominioModel, CasaModel
+
+class CasaSerializer(ModelSerializer):
+
     class Meta:
-        model = Condominio
-        fields = '__all__'
+        model = CasaModel
+        fields = "__all__"
+
+class CondominioSerializer(ModelSerializer):
+
+    class Meta:
+        model = CondominioModel
+        fields = "__all__"
