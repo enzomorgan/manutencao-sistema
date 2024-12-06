@@ -83,11 +83,11 @@ class CondominioViewSet(ModelViewSet):
         serializer = CondominioSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        casa_numero = serializer.validated_data['sala_numero']
+        casa_numero = serializer.validated_data['casa_numero']
         endereco = serializer.validated_data['endereco']
 
         sala_existe = CasaModel.objects.filter(numero=casa_numero).exists()
-        in_conflict = CondominioModel.objects.filter(casa_numero=casa_numero, endereco_lt = endereco).exists()
+        in_conflict = CondominioModel.objects.filter(casa_numero=casa_numero, endereco = endereco).exists()
 
         if sala_existe and not in_conflict:
             novo_condominio = CondominioModel.objects.create(
