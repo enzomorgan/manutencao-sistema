@@ -29,7 +29,7 @@ class CasaTesteCase(TestCase):
         response = self.client.post(url,data)
         self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
     
-    def test_listar_calas(self):
+    def test_listar_casas(self):
         url = "http://localhost:8000/casas/"
         CasaModel.objects.create(
             numero=2,
